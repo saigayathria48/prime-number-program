@@ -33,9 +33,10 @@ docker run --rm -p 3000:3000 prime-number-app:latest
 
 ## Kubernetes
 
-The Docker Desktop Kubernetes cluster is used for the local lab deployment. Jenkins runs the tests, builds the image, applies the manifests in `k8s/`, and waits for the deployment rollout to complete.
+The Docker Desktop Kubernetes cluster is used for the local lab deployment. Jenkins runs the tests, builds the Docker image, creates a ConfigMap from the application source, applies the manifests in `k8s/`, and waits for the deployment rollout to complete. The pod uses the public Node.js base image and mounts the source files from the ConfigMap.
 
 ```powershell
+kubectl create configmap prime-number-source --from-file=prime.js --from-file=server.js --dry-run=client -o yaml | kubectl apply -f -
 kubectl apply -f k8s/deployment.yaml
 kubectl apply -f k8s/service.yaml
 kubectl get deployments,pods,services -l app=prime-number-app

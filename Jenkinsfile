@@ -46,6 +46,7 @@ pipeline {
                         echo Kubernetes kubeconfig was not found: %KUBECONFIG%
                         exit /b 1
                     )
+                    "%KUBECTL_EXE%" create configmap prime-number-source --from-file=prime.js --from-file=server.js --dry-run=client -o yaml | "%KUBECTL_EXE%" apply -f -
                     "%KUBECTL_EXE%" apply -f k8s/deployment.yaml
                     "%KUBECTL_EXE%" apply -f k8s/service.yaml
                     "%KUBECTL_EXE%" rollout restart deployment/prime-number-app

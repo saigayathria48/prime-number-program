@@ -16,8 +16,10 @@ spec:
     spec:
       containers:
         - name: prime-number-app
-          image: prime-number-app:latest
-          imagePullPolicy: Never
+          image: node:22.23.2-bookworm-slim
+          imagePullPolicy: IfNotPresent
+          command: ["node"]
+          args: ["/app/server.js"]
           ports:
             - name: http
               containerPort: 3000
@@ -40,3 +42,11 @@ spec:
             limits:
               cpu: 250m
               memory: 128Mi
+          volumeMounts:
+            - name: app-source
+              mountPath: /app
+              readOnly: true
+      volumes:
+        - name: app-source
+          configMap:
+            name: prime-number-source
