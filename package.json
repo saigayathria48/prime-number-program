@@ -1,0 +1,17 @@
+{
+  "name": "prime-number-program",
+  "version": "1.0.0",
+  "description": "Prime number checker with Jenkins and Kubernetes deployment",
+  "main": "prime.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node --test"
+  },
+  "keywords": [
+    "prime",
+    "jenkins",
+    "kubernetes"
+  ],
+  "license": "MIT"
+}
